@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cal</title>
+    <link rel="stylesheet" href="calc_ds.css">
+</head>
+
+<script>
+    var numberClicked = false;
+    // 계산기의 숫자와 연산자를 누르면 맨위의 수식창에 표시
+    function add(char){ 
+        if(numberClicked == false){ // 숫자를 누르지 않은 상황
+            if(isNaN(char) == false){ // 숫자를 누를 수 있지만 연산자는 안됨
+                var display = document.getElementById('display');
+                display.value += char;
+                numberClicked = true; // 다음 수식으로 숫자or연산자가 옮
+            }
+        }else{ // 이전에 숫자를 눌렀다면
+            if(isNaN(char)==false){  // 숫자를 누를 수 있거나
+                var display = document.getElementById('display');
+                display.value += char;
+            }else{ // 연산자를 누를 수 있음
+                var display = document.getElementById('display');
+                display.value += char;
+                numberClicked = false; 
+                // 연산자를 누르면 연속으로 연산자가 안오도록 false로 바꿈
+            }
+        }
+    }
+
+    function reset(){ // 계산기의 결과값, 수식을 초기화
+        document.getElementById('display').value = null;
+        document.getElementById('result').value = null;
+    }
+
+    function calc(){ // 계산기에 작성된 수식을 계산
+        var display = document.getElementById('display');
+        var result = eval(display.value);
+        document.getElementById('result').value = result;
+    }
+</script>
+
+<body>
+    <table width="30%" height="300px">
+        <tr>
+            <th colspan="4" style="text-align: right;"><input type="text" id="display"></th>
+        </tr>
+        <tr>
+            <th colspan="4" style="text-align: right;"><input type="text" id="result"></th>
+        </tr>
+        <tr>
+            <th colspan="3" onclick="reset()">AC</th>
+            <th onclick="add('÷')">÷</th>
+        </tr>
+        <tr>
+            <th onclick="add(7)">7</th>
+            <th onclick="add(8)">8</th>
+            <th onclick="add(9)">9</th>
+            <th onclick="add('*')">x</th>
+        </tr>
+        <tr>
+            <th onclick="add(4)">4</th>
+            <th onclick="add(5)">5</th>
+            <th onclick="add(6)">6</th>
+            <th onclick="add('-')">-</th>
+        </tr>
+        <tr>
+            <th onclick="add(1)">1</th>
+            <th onclick="add(2)">2</th>
+            <th onclick="add(3)">3</th>
+            <th onclick="add('+')">+</th>
+        </tr>
+        <tr>
+            <th colspan="2" onclick="add(0)">0</th>
+            <th onclick="add('.')">.</th>
+            <th onclick="calc()">=</th>
+        </tr>
+    </table>
+    
+</body>
+</html>
